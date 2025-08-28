@@ -1,0 +1,62 @@
+POWERSHELL .ENV COMMAND ===> .\env\Scripts\Activate.ps1
+
+START PROJECT ===> django-admin startproject backend
+TODO: Consider naming main folder config for best practice
+
+NEW APPS ===> python manage.py startapp api
+
+SETTINGS FOLDER SETUP
+
+JWT SETUP ===> REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+}
+
+Refresh exp date should always be > access exp date
+
+
+INSTALLED APPS SETUP ===> "rest_framework", "corsheaders", "api"
+
+MIDDLEWARE ===> "corsheaders.middleware.CorsMiddleware"
+
+Need to make this more secure!
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWS_CREDENTIALS = True
+
+https://www.youtube.com/watch?v=vLTJ_03Dq4M
+JWT (JSON Web Token) Token:
+    -Used in backend request to authenticate user
+
+Flow:
+    -Credentials sent to backend
+    -Backend sends refresh and access Token. Access token is refreshed with refresh token, and 
+     is used to access backend. 
+     Once refresh token expires, new set is needed.
+
+ORM (Object Relational Mapping) ===>
+    - Maps python objects to corresponding code that needs to be executed to make database changes.
+
+User Serializer, View next, Connect Urls
+
+Next, make migrations ===> python manage.py makemigrattions
+    - Creates file that tells django the migrations needed to be made.
+
+Follow up with migrate ===> python manage.py migrate
+
+Run server
+
+Build out a model, serializer, and crud views to test
+
+After users, rest of urls made inside api app. Connect them to config urls with: path("api/", include("api.urls")),
+
+
+
